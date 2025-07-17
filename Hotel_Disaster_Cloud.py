@@ -18,7 +18,7 @@ CONFIG = {
 
 def load_logo():
     """Load logo image if available"""
-    logo_path = "Brand kit (2).png"  # Your logo file name
+    logo_path = "HotelOptix - Brand Kit.png"  # Your logo file name
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as f:
             logo_data = base64.b64encode(f.read()).decode()
