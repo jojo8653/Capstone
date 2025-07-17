@@ -265,7 +265,7 @@ def main():
         st.markdown(f"""
         <div class="main-header">
             <div class="logo-container">
-                <img src="{logo_data}" style="width: 180px; height: 180px; object-fit: contain;">
+                <img src="{logo_data}" style="width: 250px; height: 250px; object-fit: contain;">
             </div>
             <div class="title-container">
                 <h1 class="custom-title">HotelOptix Disaster Response Tool</h1>
