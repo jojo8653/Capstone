@@ -18,7 +18,7 @@ CONFIG = {
 
 def load_logo():
     """Load logo image if available"""
-    logo_path = "Logo1.png"  # Your logo file name
+    logo_path = "logo1.png"  # Your logo file name
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as f:
             logo_data = base64.b64encode(f.read()).decode()
@@ -164,11 +164,12 @@ def main():
         initial_sidebar_state="expanded"
     )
     
-    # Custom CSS for branding
+    # HotelOptix Brand Styling
     st.markdown("""
     <style>
-    /* Import custom fonts - replace 'YourFontName' with actual font from Canva */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    /* HotelOptix Brand Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600&display=swap');
     
     /* Custom styling */
     .main-header {
@@ -176,6 +177,8 @@ def main():
         align-items: center;
         gap: 20px;
         margin-bottom: 30px;
+        padding: 20px 0;
+        border-bottom: 2px solid #FACC00;
     }
     
     .logo-container {
@@ -186,76 +189,152 @@ def main():
         flex-grow: 1;
     }
     
-    /* Custom font for titles */
+    /* HotelOptix Typography */
     .custom-title {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Montserrat', sans-serif;  /* Closest to Futura Maxi CG Bold */
         font-size: 2.5rem;
-        font-weight: 700;
-        color: #1f2937;
+        font-weight: 800;
+        color: #000053;  /* OPTIX BLUE */
         margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
     .custom-subtitle {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;  /* Closest to Telegraf */
         font-size: 1.1rem;
-        color: #6b7280;
+        color: #666666;
         margin: 5px 0;
+        font-weight: 500;
     }
     
-    /* Color scheme - update these with your Canva colors */
+    /* HotelOptix Brand Colors */
     :root {
-        --primary-color: #3b82f6;
-        --secondary-color: #1e40af;
-        --accent-color: #f59e0b;
-        --text-color: #1f2937;
-        --bg-color: #f8fafc;
+        --optix-blue: #000053;      /* Primary - OPTIX BLUE */
+        --sunset-yellow: #FACC00;   /* Secondary - SUNSET */
+        --burnt-orange: #F08301;    /* Accent - BURNT ORANGE */
+        --white: #FFFFFF;           /* White */
+        --text-color: #000053;      /* Use brand blue for text */
+        --bg-color: #FFFFFF;        /* Clean white background */
+        --light-gray: #F5F5F5;      /* For cards */
     }
     
-    /* Style metrics and cards */
+    /* HotelOptix Metric Cards */
     .metrics-container {
         margin: 20px 0;
     }
     
     .metric-card {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border-left: 4px solid var(--primary-color);
+        background: var(--white);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 83, 0.1);
+        border-left: 5px solid var(--sunset-yellow);
+        border-top: 1px solid var(--burnt-orange);
         margin-bottom: 15px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: all 0.3s ease;
     }
     
     .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 83, 0.15);
+        border-left-color: var(--burnt-orange);
     }
     
     .metric-title {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;  /* Telegraf alternative */
         font-size: 0.9rem;
-        color: #6b7280;
+        color: #666666;
         margin-bottom: 8px;
-        font-weight: 500;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .metric-value {
-        font-family: 'Inter', sans-serif;
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--primary-color);
+        font-family: 'Montserrat', sans-serif;  /* Futura Maxi CG Bold alternative */
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--optix-blue);
         line-height: 1;
         margin-bottom: 5px;
     }
     
     .metric-delta {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
         font-size: 0.8rem;
-        color: #9ca3af;
-        font-weight: 400;
+        color: var(--burnt-orange);
+        font-weight: 500;
     }
-    </style>
-    """, unsafe_allow_html=True)
+    
+    /* HotelOptix Tab Styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        color: var(--optix-blue);
+        background-color: var(--light-gray);
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background-color: var(--sunset-yellow) !important;
+        color: var(--optix-blue) !important;
+    }
+    
+    /* HotelOptix Button Styling */
+    .stButton > button {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        background-color: var(--optix-blue);
+        color: var(--white);
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    
+         .stButton > button:hover {
+         background-color: var(--burnt-orange);
+         transform: translateY(-1px);
+         box-shadow: 0 4px 8px rgba(240, 131, 1, 0.3);
+     }
+     
+     /* HotelOptix Sidebar Styling */
+     .css-1d391kg {
+         background-color: var(--light-gray);
+     }
+     
+     .stSelectbox label, .stSlider label {
+         font-family: 'Montserrat', sans-serif;
+         font-weight: 600;
+         color: var(--optix-blue);
+     }
+     
+     /* HotelOptix Headers */
+     h1, h2, h3 {
+         font-family: 'Montserrat', sans-serif;
+         color: var(--optix-blue);
+         font-weight: 700;
+     }
+     
+     /* HotelOptix Dataframes */
+     .stDataFrame {
+         border: 2px solid var(--sunset-yellow);
+         border-radius: 10px;
+     }
+     
+     /* HotelOptix Expanders */
+     .streamlit-expanderHeader {
+         font-family: 'Montserrat', sans-serif;
+         font-weight: 600;
+         color: var(--optix-blue);
+         background-color: var(--light-gray);
+     }
+     </style>
+     """, unsafe_allow_html=True)
     
     # Header with logo and title
     logo_data = load_logo()
@@ -265,7 +344,7 @@ def main():
         st.markdown(f"""
         <div class="main-header">
             <div class="logo-container">
-                <img src="{logo_data}" style="width: 250px; height: 250px; object-fit: contain;">
+                <img src="{logo_data}" style="width: 180px; height: 180px; object-fit: contain;">
             </div>
             <div class="title-container">
                 <h1 class="custom-title">HotelOptix Disaster Response Tool</h1>
@@ -274,11 +353,11 @@ def main():
         </div>
         """, unsafe_allow_html=True)
     else:
-        # Fallback placeholder logo - Updated to larger size
+        # HotelOptix Branded Placeholder Logo
         st.markdown("""
         <div class="main-header">
             <div class="logo-container">
-                <div style="width: 120px; height: 120px; background: linear-gradient(45deg, #3b82f6, #1e40af); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold;">
+                <div style="width: 180px; height: 180px; background: linear-gradient(135deg, #000053, #FACC00, #F08301); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 800; font-family: 'Montserrat', sans-serif; box-shadow: 0 8px 20px rgba(0, 0, 83, 0.3);">
                     H
                 </div>
             </div>
