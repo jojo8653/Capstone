@@ -18,7 +18,7 @@ CONFIG = {
 
 def load_logo():
     """Load logo image if available"""
-    logo_path = "logo1.png"  # Your logo file name
+    logo_path = "hoteloptix_logo.png"  # Your logo file name
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as f:
             logo_data = base64.b64encode(f.read()).decode()
@@ -171,6 +171,23 @@ def main():
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600&display=swap');
     
+    /* Try to load custom fonts - you can add font files to your repository */
+    @font-face {
+        font-family: 'Futura Maxi CG';
+        src: url('fonts/FuturaMaxiCGBold.woff2') format('woff2'),
+             url('fonts/FuturaMaxiCGBold.woff') format('woff');
+        font-weight: bold;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Telegraf';
+        src: url('fonts/Telegraf-Regular.woff2') format('woff2'),
+             url('fonts/Telegraf-Regular.woff') format('woff');
+        font-weight: normal;
+        font-display: swap;
+    }
+    
     /* Custom styling */
     .main-header {
         display: flex;
@@ -191,9 +208,9 @@ def main():
     
     /* HotelOptix Typography */
     .custom-title {
-        font-family: 'Montserrat', sans-serif;  /* Closest to Futura Maxi CG Bold */
+        font-family: 'Futura Maxi CG', 'Montserrat', sans-serif;  /* Exact brand font with fallback */
         font-size: 2.5rem;
-        font-weight: 800;
+        font-weight: bold;
         color: #000053;  /* OPTIX BLUE */
         margin: 0;
         text-transform: uppercase;
@@ -201,7 +218,7 @@ def main():
     }
     
     .custom-subtitle {
-        font-family: 'Source Sans Pro', sans-serif;  /* Closest to Telegraf */
+        font-family: 'Telegraf', 'Source Sans Pro', sans-serif;  /* Exact brand font with fallback */
         font-size: 1.1rem;
         color: #666666;
         margin: 5px 0;
@@ -242,7 +259,7 @@ def main():
     }
     
     .metric-title {
-        font-family: 'Source Sans Pro', sans-serif;  /* Telegraf alternative */
+        font-family: 'Telegraf', 'Source Sans Pro', sans-serif;  /* Exact brand font */
         font-size: 0.9rem;
         color: #666666;
         margin-bottom: 8px;
@@ -252,16 +269,16 @@ def main():
     }
     
     .metric-value {
-        font-family: 'Montserrat', sans-serif;  /* Futura Maxi CG Bold alternative */
+        font-family: 'Futura Maxi CG', 'Montserrat', sans-serif;  /* Exact brand font */
         font-size: 2.2rem;
-        font-weight: 800;
+        font-weight: bold;
         color: var(--optix-blue);
         line-height: 1;
         margin-bottom: 5px;
     }
     
     .metric-delta {
-        font-family: 'Source Sans Pro', sans-serif;
+        font-family: 'Telegraf', 'Source Sans Pro', sans-serif;  /* Exact brand font */
         font-size: 0.8rem;
         color: var(--burnt-orange);
         font-weight: 500;
@@ -273,8 +290,8 @@ def main():
     }
     
     .stTabs [data-baseweb="tab"] {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
+        font-family: 'Futura Maxi CG', 'Montserrat', sans-serif;  /* Headers use Futura */
+        font-weight: bold;
         color: var(--optix-blue);
         background-color: var(--light-gray);
         border-radius: 8px 8px 0 0;
@@ -287,8 +304,8 @@ def main():
     
     /* HotelOptix Button Styling */
     .stButton > button {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
+        font-family: 'Futura Maxi CG', 'Montserrat', sans-serif;  /* Headers use Futura */
+        font-weight: bold;
         background-color: var(--optix-blue);
         color: var(--white);
         border: none;
@@ -308,28 +325,34 @@ def main():
      }
      
      .stSelectbox label, .stSlider label {
-         font-family: 'Montserrat', sans-serif;
+         font-family: 'Telegraf', 'Source Sans Pro', sans-serif;  /* Subheaders use Telegraf */
          font-weight: 600;
          color: var(--optix-blue);
      }
      
      /* HotelOptix Headers */
      h1, h2, h3 {
-         font-family: 'Montserrat', sans-serif;
+         font-family: 'Futura Maxi CG', 'Montserrat', sans-serif;  /* Headers use Futura */
          color: var(--optix-blue);
-         font-weight: 700;
+         font-weight: bold;
+     }
+     
+     /* HotelOptix Paragraphs and Body Text */
+     p, .stMarkdown, .stText, .streamlit-expanderContent {
+         font-family: 'Telegraf', 'Source Sans Pro', sans-serif;  /* Body text uses Telegraf */
      }
      
      /* HotelOptix Dataframes */
      .stDataFrame {
          border: 2px solid var(--sunset-yellow);
          border-radius: 10px;
+         font-family: 'Telegraf', 'Source Sans Pro', sans-serif;
      }
      
      /* HotelOptix Expanders */
      .streamlit-expanderHeader {
-         font-family: 'Montserrat', sans-serif;
-         font-weight: 600;
+         font-family: 'Futura Maxi CG', 'Montserrat', sans-serif;  /* Headers use Futura */
+         font-weight: bold;
          color: var(--optix-blue);
          background-color: var(--light-gray);
      }
@@ -357,7 +380,7 @@ def main():
         st.markdown("""
         <div class="main-header">
             <div class="logo-container">
-                <div style="width: 180px; height: 180px; background: linear-gradient(135deg, #000053, #FACC00, #F08301); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: 800; font-family: 'Montserrat', sans-serif; box-shadow: 0 8px 20px rgba(0, 0, 83, 0.3);">
+                <div style="width: 180px; height: 180px; background: linear-gradient(135deg, #000053, #FACC00, #F08301); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; font-weight: bold; font-family: 'Futura Maxi CG', 'Montserrat', sans-serif; box-shadow: 0 8px 20px rgba(0, 0, 83, 0.3);">
                     H
                 </div>
             </div>
