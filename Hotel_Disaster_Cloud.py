@@ -3,6 +3,8 @@ import numpy as np
 import streamlit as st
 from datetime import datetime, timedelta
 import warnings
+import base64
+import os
 warnings.filterwarnings('ignore')
 
 # Core configuration
@@ -13,6 +15,15 @@ CONFIG = {
     'worker_relocation_radius': 300,
     'priority_booking_hours': 72,
 }
+
+def load_logo():
+    """Load logo image if available"""
+    logo_path = "hoteloptix_logo.png"  # Your logo file name
+    if os.path.exists(logo_path):
+        with open(logo_path, "rb") as f:
+            logo_data = base64.b64encode(f.read()).decode()
+        return f"data:image/png;base64,{logo_data}"
+    return None
 
 @st.cache_data
 def load_and_prepare_data():
@@ -153,8 +164,130 @@ def main():
         initial_sidebar_state="expanded"
     )
     
-    st.title("🏨 HotelOptix Disaster Response Tool")
-    st.markdown("**Professional Emergency Rebooking & Service Worker Relocation Platform**")
+    # Custom CSS for branding
+    st.markdown("""
+    <style>
+    /* Import custom fonts - replace 'YourFontName' with actual font from Canva */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    
+    /* Custom styling */
+    .main-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .logo-container {
+        flex-shrink: 0;
+    }
+    
+    .title-container {
+        flex-grow: 1;
+    }
+    
+    /* Custom font for titles */
+    .custom-title {
+        font-family: 'Inter', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0;
+    }
+    
+    .custom-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.1rem;
+        color: #6b7280;
+        margin: 5px 0;
+    }
+    
+    /* Color scheme - update these with your Canva colors */
+    :root {
+        --primary-color: #3b82f6;
+        --secondary-color: #1e40af;
+        --accent-color: #f59e0b;
+        --text-color: #1f2937;
+        --bg-color: #f8fafc;
+    }
+    
+    /* Style metrics and cards */
+    .metrics-container {
+        margin: 20px 0;
+    }
+    
+    .metric-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border-left: 4px solid var(--primary-color);
+        margin-bottom: 15px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+    
+    .metric-title {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    
+    .metric-value {
+        font-family: 'Inter', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+    
+    .metric-delta {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        color: #9ca3af;
+        font-weight: 400;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Header with logo and title
+    logo_data = load_logo()
+    
+    if logo_data:
+        # Use actual logo
+        st.markdown(f"""
+        <div class="main-header">
+            <div class="logo-container">
+                <img src="{logo_data}" style="width: 80px; height: 80px; object-fit: contain;">
+            </div>
+            <div class="title-container">
+                <h1 class="custom-title">HotelOptix Disaster Response Tool</h1>
+                <p class="custom-subtitle">Professional Emergency Rebooking & Service Worker Relocation Platform</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        # Fallback placeholder logo
+        st.markdown("""
+        <div class="main-header">
+            <div class="logo-container">
+                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #3b82f6, #1e40af); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                    H
+                </div>
+            </div>
+            <div class="title-container">
+                <h1 class="custom-title">HotelOptix Disaster Response Tool</h1>
+                <p class="custom-subtitle">Professional Emergency Rebooking & Service Worker Relocation Platform</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Load data
     with st.spinner("Loading data..."):
@@ -189,41 +322,53 @@ def main():
     with tab1:
         st.header("Disaster Response Dashboard Overview")
         
-        # Key metrics
+        # Key metrics with custom styling
+        st.markdown('<div class="metrics-container">', unsafe_allow_html=True)
         col1, col2, col3, col4 = st.columns(4)
         
         affected_bookings = df[df['disaster_affected'] == 1]
         
         with col1:
-            st.metric(
-                "Affected Bookings",
-                len(affected_bookings),
-                f"Severity {severity} in {affected_location}"
-            )
+            st.markdown("""
+            <div class="metric-card">
+                <div class="metric-title">Affected Bookings</div>
+                <div class="metric-value">{}</div>
+                <div class="metric-delta">Severity {} in {}</div>
+            </div>
+            """.format(len(affected_bookings), severity, affected_location), unsafe_allow_html=True)
         
         with col2:
             emergency_bookings = affected_bookings[affected_bookings['emergency_booking'] == 1]
-            st.metric(
-                "Emergency Bookings",
-                len(emergency_bookings),
-                f"{len(emergency_bookings)/len(affected_bookings)*100:.1f}% of affected" if len(affected_bookings) > 0 else "0%"
-            )
+            percentage = f"{len(emergency_bookings)/len(affected_bookings)*100:.1f}%" if len(affected_bookings) > 0 else "0%"
+            st.markdown("""
+            <div class="metric-card">
+                <div class="metric-title">Emergency Bookings</div>
+                <div class="metric-value">{}</div>
+                <div class="metric-delta">{} of affected</div>
+            </div>
+            """.format(len(emergency_bookings), percentage), unsafe_allow_html=True)
         
         with col3:
             high_priority = affected_bookings[affected_bookings['emergency_priority'] >= 3]
-            st.metric(
-                "High Priority Cases",
-                len(high_priority),
-                "Families & VIP guests"
-            )
+            st.markdown("""
+            <div class="metric-card">
+                <div class="metric-title">High Priority Cases</div>
+                <div class="metric-value">{}</div>
+                <div class="metric-delta">Families & VIP guests</div>
+            </div>
+            """.format(len(high_priority)), unsafe_allow_html=True)
         
         with col4:
             avg_nights = affected_bookings['total_nights'].mean() if len(affected_bookings) > 0 else 0
-            st.metric(
-                "Avg. Nights Affected",
-                f"{avg_nights:.1f}",
-                "Per booking"
-            )
+            st.markdown("""
+            <div class="metric-card">
+                <div class="metric-title">Avg. Nights Affected</div>
+                <div class="metric-value">{:.1f}</div>
+                <div class="metric-delta">Per booking</div>
+            </div>
+            """.format(avg_nights), unsafe_allow_html=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
         
         # Impact analysis
         st.subheader("Impact by Country")
