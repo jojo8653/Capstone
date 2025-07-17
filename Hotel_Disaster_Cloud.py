@@ -18,7 +18,7 @@ CONFIG = {
 
 def load_logo():
     """Load logo image if available"""
-    logo_path = "Brand kit.png"  # Your logo file name
+    logo_path = "hoteloptix_logo.png"  # Your logo file name
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as f:
             logo_data = base64.b64encode(f.read()).decode()
@@ -261,11 +261,11 @@ def main():
     logo_data = load_logo()
     
     if logo_data:
-        # Use actual logo
+        # Use actual logo - Updated to larger size
         st.markdown(f"""
         <div class="main-header">
             <div class="logo-container">
-                <img src="{logo_data}" style="width: 80px; height: 80px; object-fit: contain;">
+                <img src="{logo_data}" style="width: 120px; height: 120px; object-fit: contain;">
             </div>
             <div class="title-container">
                 <h1 class="custom-title">HotelOptix Disaster Response Tool</h1>
@@ -274,11 +274,11 @@ def main():
         </div>
         """, unsafe_allow_html=True)
     else:
-        # Fallback placeholder logo
+        # Fallback placeholder logo - Updated to larger size
         st.markdown("""
         <div class="main-header">
             <div class="logo-container">
-                <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #3b82f6, #1e40af); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold;">
+                <div style="width: 120px; height: 120px; background: linear-gradient(45deg, #3b82f6, #1e40af); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 36px; font-weight: bold;">
                     H
                 </div>
             </div>
